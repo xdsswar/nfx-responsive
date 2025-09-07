@@ -1,0 +1,120 @@
+.grid-list-view{
+    -fx-background-color: #F3F3F3;
+    -cell-heightt: 50;
+    -min-cell-width: 200;
+    -max-cells-per-row: 12;
+    -fx-background-insets: 0;
+    -fx-border-width: 1;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -box-insets: 10 20 10 10;
+    -cell-spacing: 0 5 5 5;
+}
+
+.grid-list-view .corner,
+.grid-list-view .scroll-pane,
+.grid-list-view .scroll-pane .viewport,
+.grid-list-view > .viewport {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+
+.grid-list-view .scroll-bar:vertical{
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+
+.grid-list-view  .scroll-bar:horizontal .track,
+.grid-list-view  .scroll-bar:vertical .track{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+/* The increment button CSS class of scrollbar */
+.grid-list-view  .scroll-bar:horizontal .increment-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-padding:0;
+    visibility: hidden;
+}
+/* The decrement button CSS class of scrollbar */
+.grid-list-view  .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    visibility: hidden;
+}
+
+.grid-list-view  .scroll-bar .increment-arrow,
+.grid-list-view  .scroll-bar .decrement-arrow{
+    -fx-shape: none;
+    -fx-padding:0;
+    visibility: hidden;
+}
+
+.grid-list-view  .scroll-bar:horizontal .thumb,
+.grid-list-view  .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(128, 128, 128, 0.6);
+    -fx-border-color: rgba(128, 128, 128, 0.6);
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.grid-list-view  .scroll-bar:horizontal .thumb:hover,
+.grid-list-view  .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #989595;
+    -fx-border-color: #989595;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.virtual-pane{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+.grid-cell{
+    -fx-background-color: transparent;
+    -fx-border-color: #c2bebe;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+}
+
+.grid-cell:hover{
+    -fx-background-color: rgba(0, 147, 255, 0.12);
+}
+
+.grid-cell:selected{
+    -fx-background-color: rgba(0, 147, 255, 0.70);
+}
+
+.grid-cell:selected:hover{
+    -fx-background-color: rgba(0, 147, 255, 0.82);
+}
+
+.grid-cell:focused{
+    -fx-border-color: #039ED3;
+}
+
+
+.default-grid-cell-factory-label{
+    -fx-text-fill: #232323;
+    -fx-font-size: 12;
+    -fx-alignment: CENTER;
+}

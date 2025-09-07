@@ -1,0 +1,44 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'xss.it.demo'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClass = 'xss.it.demo.Demo'
+    mainModule = 'nfx.demo'
+}
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) }}
+
+javafx {
+    version = '21.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+
+dependencies {
+    implementation project(':responsive')
+    implementation 'org.json:json:20240303'
+
+}
+
+jar{
+    manifest {
+        attributes(
+                'version': version,
+                'author': "XTREME SOFTWARE SOLUTIONS (XSS&IT)",
+        )
+    }
+}

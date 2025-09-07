@@ -1,0 +1,263 @@
+.base{
+    -fx-background-color: #F1F2F7;
+}
+
+.viewport,
+.scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+scroll-bar:vertical{
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-min-width: 12;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-border-color: transparent;
+    -fx-background-color: #F1F2F7;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+/* The increment button CSS class of scrollbar */
+.scroll-bar:horizontal .decrement-button,
+.scroll-bar:horizontal .increment-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-border-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 0 0;
+    visibility: hidden;
+}
+/* The decrement button CSS class of scrollbar */
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-border-insets: 0;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0 4;
+    visibility: hidden;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape: none;
+    -fx-padding:0;
+    visibility: hidden;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(128, 128, 128, 0.6);
+    -fx-border-color: rgba(128, 128, 128, 0.6);
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #989595;
+    -fx-border-color: #989595;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+
+
+
+
+.sidebar{
+    -fx-background-color: #2C3E50;
+}
+
+.sidebar-sep{
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+    -fx-background-color: #3f576e;
+    -fx-max-width: 120;
+}
+
+.top-label{
+    -fx-text-fill: #ECF0F1;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18;
+}
+
+.sidebar-button{
+    -fx-pref-width: 600;
+    -fx-min-height: 28;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-background-color: transparent;
+    -fx-text-fill: #ECF0F1;
+    -fx-font-size: 13;
+    -fx-border-width: .6;
+    -fx-border-color: #34495E;
+    -fx-cursor: hand;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.sidebar-button:hover{
+    -fx-background-color: #34495E;
+}
+
+.sidebar-button:armed{
+    -fx-background-color: transparent;
+}
+
+
+.dash-card{
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-max-height: 180;
+    -fx-min-height: 180;
+}
+
+.card-icon{
+    -fx-fill: rgba(255, 255, 255, 0.44);
+}
+
+.card-arrow{
+    -fx-fill: #ffffff;
+}
+
+.card-caption{
+    -fx-text-fill: #ECF0F1;
+    -fx-font-weight: bold;
+    -fx-font-size: 22;
+}
+
+.card-percent{
+    -fx-text-fill: #ECF0F1;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.card-title{
+    -fx-text-fill: #ECF0F1;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.card-1{
+    -fx-background-color: #00c292;
+}
+
+.card-2{
+    -fx-background-color: #ab8ce4;
+}
+
+.card-3{
+    -fx-background-color: #03a9f3;
+}
+
+.card-4{
+    -fx-background-color: #fb9678;
+}
+
+.list-place-holder{
+    -fx-min-height: 700;
+    -fx-border-color: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.chart-place-holder{
+    -fx-min-height: 460;
+    -fx-border-color: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.chart-place-holder-header{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #d8d9e0;
+}
+
+.chart-place-holder-header .label{
+    -fx-text-fill: #34495E;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15;
+}
+
+.text-field{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8d9e0;
+    -fx-min-width: 300;
+    -fx-background-insets: 0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 14;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #34495E;
+    -fx-padding: 8 8 8 8;
+}
+
+.text-field:focused{
+    -fx-border-color: #3498DB;
+}
+
+
+.grid-list-view{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent ;
+    -fx-border-width: 0;
+}
+
+
+.cell-box{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.cell-label{
+    -fx-text-fill: #34495E;
+    -fx-font-size: 16;
+}
+
+.grid-cell{
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-color: #d8d9e0;
+}
+
+
+.grid-cell:hover{
+    -fx-background-color: rgba(22, 160, 133, 0.1);
+    -fx-border-color: rgba(22, 160, 133, 0.1);
+}
+
+.grid-cell:selected{
+    -fx-background-color: rgba(22, 160, 133, 0.4);
+    -fx-border-color: rgba(22, 160, 133, 0.4);
+}
+
+.grid-cell:selected:hover{
+    -fx-background-color: rgba(22, 160, 133, 0.1);
+    -fx-border-color: rgba(22, 160, 133, 0.1);
+}
+
+.grid-cell:focused{
+    -fx-border-color: #16A085;
+}
+
+.grid-cell:selected:focused{
+    -fx-background-color: rgba(22, 160, 133, 0.4);
+    -fx-border-color: rgba(22, 160, 133, 0.4);
+}

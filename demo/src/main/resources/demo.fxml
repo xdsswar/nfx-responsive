@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import xss.it.nfx.responsive.control.NfxGridListView?>
+<?import xss.it.nfx.responsive.layout.NfxGridItem?>
+<?import xss.it.nfx.responsive.layout.NfxGridLayout?>
+
+<AnchorPane prefHeight="855.0" prefWidth="1327.0" stylesheets="@demo.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="110.0" layoutY="95.0" prefHeight="200.0" prefWidth="200.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="39.0" layoutY="52.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="152.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@admin.png" />
+                           </image>
+                        </ImageView>
+                        <Label styleClass="top-label" text="Administrator">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Pane prefHeight="7.0" prefWidth="160.0" styleClass="sidebar-sep" />
+                  <Button mnemonicParsing="false" styleClass="sidebar-button" text="Dashboard">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="203.0" mnemonicParsing="false" styleClass="sidebar-button" text="Invoices">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="232.0" mnemonicParsing="false" styleClass="sidebar-button" text="Producs">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="261.0" mnemonicParsing="false" styleClass="sidebar-button" text="Clients">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="290.0" mnemonicParsing="false" styleClass="sidebar-button" text="Brands">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="319.0" mnemonicParsing="false" styleClass="sidebar-button" text="Users">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <Button layoutX="10.0" layoutY="348.0" mnemonicParsing="false" styleClass="sidebar-button" text="Settings">
+                     <graphic>
+                        <HBox prefHeight="5.0" prefWidth="5.0" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="799.0" layoutY="321.0" prefHeight="200.0" prefWidth="200.0" styleClass="base" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <AnchorPane prefWidth="1118.0">
+               <children>
+                  <NfxGridLayout layoutX="273.0" layoutY="182.0" prefWidth="1118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <NfxGridItem bottomGap="10.0" leftGap="10.0" lgColSpan="3" mdColSpan="6" rightGap="10.0" smColSpan="6" topGap="10.0" xlColSpan="3" xxlColSpan="3">
+                           <children>
+                              <AnchorPane prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="dash-card" />
+                                    <String fx:value="card-1" />
+                                 </styleClass>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="card-caption" text="\$29,829.00" />
+                                                <Label layoutX="10.0" layoutY="57.0" styleClass="card-title" text="REVENUE">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="65.0" styleClass="card-percent" text="1.3%">
+                                                   <graphic>
+                                                      <SVGPath content="M7.5 0.902344L3.050781 5.242188L3.75 5.957031L7 2.789063L7 14L8 14L8 2.789063L11.25 5.957031L11.949219 5.242188Z" styleClass="card-arrow" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <SVGPath content="M7.5 2C4.46875 2 2 4.46875 2 7.5C2 10.53125 4.46875 13 7.5 13C10.53125 13 13 10.53125 13 7.5C13 4.46875 10.53125 2 7.5 2 Z M 7.5 3C9.980469 3 12 5.019531 12 7.5C12 9.980469 9.980469 12 7.5 12C5.019531 12 3 9.980469 3 7.5C3 5.019531 5.019531 3 7.5 3 Z M 7 4L7 5L6.5 5C5.6875 5 5 5.6875 5 6.5C5 7.3125 5.6875 8 6.5 8L8.5 8C8.757813 8 9 8.242188 9 8.5C9 8.757813 8.757813 9 8.5 9L5 9L5 10L7 10L7 11L8 11L8 10L8.5 10C9.3125 10 10 9.3125 10 8.5C10 7.6875 9.3125 7 8.5 7L6.5 7C6.242188 7 6 6.757813 6 6.5C6 6.242188 6.242188 6 6.5 6L9 6L9 5L8 5L8 4Z" scaleX="3.0" scaleY="3.0" scaleZ="3.0" styleClass="card-icon">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="30.0" />
+                                             </HBox.margin>
+                                          </SVGPath>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem bottomGap="10.0" layoutX="20.0" layoutY="20.0" leftGap="10.0" lgColSpan="3" mdColSpan="6" rightGap="10.0" smColSpan="6" topGap="10.0" xlColSpan="3" xxlColSpan="3">
+                           <children>
+                              <AnchorPane prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="dash-card" />
+                                    <String fx:value="card-2" />
+                                 </styleClass>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="card-caption" text="4,840" />
+                                                <Label layoutX="10.0" layoutY="57.0" styleClass="card-title" text="SALES">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="65.0" styleClass="card-percent" text="1.7%">
+                                                   <graphic>
+                                                      <SVGPath content="M7.5 0.902344L3.050781 5.242188L3.75 5.957031L7 2.789063L7 14L8 14L8 2.789063L11.25 5.957031L11.949219 5.242188Z" styleClass="card-arrow" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <SVGPath content="M5.5 1C5.300781 1 5.117188 1.121094 5.039063 1.304688L3.042969 6L1.5 6C1.222656 6 1 6.222656 1 6.5L1 8.5C1 8.777344 1.222656 9 1.5 9L2.089844 9L2.851563 12.796875C2.988281 13.492188 3.609375 14 4.320313 14L11.679688 14C12.390625 14 13.011719 13.492188 13.152344 12.796875L13.910156 9L14.5 9C14.777344 9 15 8.777344 15 8.5L15 6.5C15 6.222656 14.777344 6 14.5 6L12.957031 6L10.960938 1.304688C10.882813 1.121094 10.699219 1 10.5 1 Z M 5.828125 2L10.171875 2L11.871094 6L4.132813 6 Z M 2 7L14 7L14 8L13.5 8C13.261719 8 13.054688 8.167969 13.011719 8.402344L12.171875 12.597656C12.121094 12.835938 11.921875 13 11.679688 13L4.320313 13C4.078125 13 3.878906 12.835938 3.828125 12.597656L2.992188 8.402344C2.945313 8.167969 2.738281 8 2.5 8L2 8 Z M 5 8L5 12L11 12L11 8 Z M 6 9L10 9L10 11L6 11Z" scaleX="3.0" scaleY="3.0" scaleZ="3.0" styleClass="card-icon">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="30.0" />
+                                             </HBox.margin>
+                                          </SVGPath>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem bottomGap="10.0" layoutX="300.0" layoutY="20.0" leftGap="10.0" lgColSpan="3" mdColSpan="6" rightGap="10.0" smColSpan="6" topGap="10.0" xlColSpan="3" xxlColSpan="3">
+                           <children>
+                              <AnchorPane prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="dash-card" />
+                                    <String fx:value="card-3" />
+                                 </styleClass>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="card-caption" text="2300" />
+                                                <Label layoutX="10.0" layoutY="57.0" styleClass="card-title" text="CUSTOMERS">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="65.0" styleClass="card-percent" text="3.2%">
+                                                   <graphic>
+                                                      <SVGPath content="M7.5 0.902344L3.050781 5.242188L3.75 5.957031L7 2.789063L7 14L8 14L8 2.789063L11.25 5.957031L11.949219 5.242188Z" styleClass="card-arrow" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <SVGPath content="M8 3C6.347656 3 5 4.347656 5 6C5 6.960938 5.464844 7.808594 6.171875 8.359375C5.746094 8.527344 5.355469 8.757813 4.996094 9.03125C4.996094 9.019531 5 9.011719 5 9C5 7.902344 4.097656 7 3 7C1.902344 7 1 7.902344 1 9C1 9.535156 1.21875 10.023438 1.5625 10.382813C0.636719 10.894531 0 11.871094 0 13L1 13C1 11.890625 1.890625 11 3 11C3.140625 11 3.273438 11.015625 3.402344 11.042969C3.144531 11.644531 3 12.304688 3 13L4 13C4 10.785156 5.785156 9 8 9C10.214844 9 12 10.785156 12 13L13 13C13 12.308594 12.855469 11.648438 12.597656 11.046875C12.730469 11.019531 12.863281 11 13 11C14.109375 11 15 11.890625 15 13L16 13C16 11.871094 15.363281 10.894531 14.4375 10.382813C14.78125 10.023438 15 9.535156 15 9C15 7.902344 14.097656 7 13 7C11.902344 7 11 7.902344 11 9C11 9.011719 11.003906 9.019531 11.003906 9.03125C10.644531 8.757813 10.253906 8.527344 9.828125 8.359375C10.535156 7.808594 11 6.960938 11 6C11 4.347656 9.652344 3 8 3 Z M 8 4C9.109375 4 10 4.890625 10 6C10 7.109375 9.109375 8 8 8C6.890625 8 6 7.109375 6 6C6 4.890625 6.890625 4 8 4 Z M 3 8C3.558594 8 4 8.441406 4 9C4 9.558594 3.558594 10 3 10C2.441406 10 2 9.558594 2 9C2 8.441406 2.441406 8 3 8 Z M 13 8C13.558594 8 14 8.441406 14 9C14 9.558594 13.558594 10 13 10C12.441406 10 12 9.558594 12 9C12 8.441406 12.441406 8 13 8Z" scaleX="3.0" scaleY="3.0" scaleZ="3.0" styleClass="card-icon">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="30.0" />
+                                             </HBox.margin>
+                                          </SVGPath>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem bottomGap="10.0" layoutX="579.0" layoutY="20.0" leftGap="10.0" lgColSpan="3" mdColSpan="6" rightGap="10.0" smColSpan="6" topGap="10.0" xlColSpan="3" xxlColSpan="3">
+                           <children>
+                              <AnchorPane prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="dash-card" />
+                                    <String fx:value="card-4" />
+                                 </styleClass>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="card-caption" text="43.1%" />
+                                                <Label layoutX="10.0" layoutY="57.0" styleClass="card-title" text="BOUNCE RATE">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="65.0" styleClass="card-percent" text="1.3%">
+                                                   <graphic>
+                                                      <SVGPath content="M7.5 0.902344L3.050781 5.242188L3.75 5.957031L7 2.789063L7 14L8 14L8 2.789063L11.25 5.957031L11.949219 5.242188Z" styleClass="card-arrow" />
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <SVGPath content="M9.464844 1L10.878906 2.414063L9 4.292969L8 3.292969L5 6.292969L4 5.292969L1.023438 8.273438L1.726563 8.976563L4 6.707031L5 7.707031L8 4.707031L9 5.707031L11.585938 3.121094L13 4.535156L13 1 Z M 13 6L13 14L14 14L14 6 Z M 11 7L11 14L12 14L12 7 Z M 9 8L9 14L10 14L10 8 Z M 7 9L7 14L8 14L8 9 Z M 5 10L5 14L6 14L6 10 Z M 3 11L3 14L4 14L4 11 Z M 1 12L1 14L2 14L2 12Z" scaleX="3.0" scaleY="3.0" scaleZ="3.0" styleClass="card-icon">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="30.0" />
+                                             </HBox.margin>
+                                          </SVGPath>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem leftGap="10.0" rightGap="10.0" topGap="20.0" xlColSpan="6" xxlColSpan="6">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="chart-place-holder">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="2.0" prefHeight="60.0" prefWidth="537.0" styleClass="chart-place-holder-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Sales Overview (Chart Placeholder)">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem layoutX="20.0" layoutY="180.0" leftGap="10.0" rightGap="10.0" topGap="20.0" xlColSpan="6" xxlColSpan="6">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="chart-place-holder">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="2.0" prefHeight="60.0" prefWidth="537.0" styleClass="chart-place-holder-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Traffic Sources (Chart Placeholder)">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                        <NfxGridItem bottomGap="20.0" layoutX="20.0" layoutY="400.0" leftGap="10.0" rightGap="10.0" topGap="20.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="list-place-holder">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="2.0" prefHeight="60.0" prefWidth="537.0" styleClass="chart-place-holder-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="All Clients">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="searchInput" promptText="Search">
+                                             <HBox.margin>
+                                                <Insets left="25.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <NfxGridListView fx:id="listView" layoutX="87.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </NfxGridItem>
+                     </children>
+                  </NfxGridLayout>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

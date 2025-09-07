@@ -1,0 +1,3 @@
+rootProject.name = "nfx-responsive"
+include('responsive')
+include('demo')

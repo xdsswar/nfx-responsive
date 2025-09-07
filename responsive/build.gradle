@@ -1,0 +1,41 @@
+plugins {
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'xss.it.nfx'
+
+repositories {
+    mavenCentral()
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+
+javafx {
+    version = '21.0.6'
+    modules = ['javafx.controls']
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: '../libs')
+}
+
+jar{
+    archiveBaseName = 'nfx-responsive'
+    manifest {
+        attributes(
+                'name': archiveBaseName,
+                'author': "XTREME SOFTWARE SOLUTIONS (XSS&IT)",
+                'version': version
+        )
+    }
+}

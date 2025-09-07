@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'xss.it.nfx'
+
+allprojects {
+    version '1.0.0'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
