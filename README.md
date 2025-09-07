@@ -18,6 +18,11 @@ No global scene hooks, no surprise side effects — everything is scoped to the 
 
 ---
 
+## Demo Video
+[![Watch the demo](https://img.youtube.com/vi/TsJTyd2h_VM/hqdefault.jpg)](https://www.youtube.com/watch?v=TsJTyd2h_VM)
+
+---
+
 ## Screenshots
 ### Dashboard Example
 ![Dashboard Maximized](screenshots/1.png)
