@@ -1,0 +1,211 @@
+/* ================= ROOT & CONTAINER ================= */
+.nfx-grid {
+    -fx-background-color: black;
+    -fx-padding: 18;
+    -fx-background-insets: 0;
+}
+
+.topbar {
+    -fx-background-color:
+            linear-gradient(to bottom, rgba(0,0,0,0.04), rgba(0,0,0,0.08)),
+            #ffffff;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 12, 10;
+    -fx-border-color: rgba(0,0,0,0.15);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #ececec);
+    -fx-text-fill: #222;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14 8 14;
+    -fx-border-color: rgba(0,0,0,0.20);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #fdfdfd, #e2e2e2);
+}
+.button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(0,120,220,0.45), 14, 0.3, 0, 0);
+}
+
+.slider .track {
+    -fx-background-color: rgba(0,0,0,0.15);
+}
+.slider .thumb {
+    -fx-background-color: #3498db;
+    -fx-border-color: #1f6399;
+    -fx-border-width: 1;
+}
+
+/* ================= BASE BOX ================= */
+.box {
+    -fx-background-color:
+            linear-gradient(to bottom right, rgba(0,0,0,0.03), rgba(0,0,0,0.04)),
+            #ffffff;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 14, 12;
+    -fx-border-color: rgba(0,0,0,0.20);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 16 14;
+    -fx-alignment: center;
+    -fx-effect:
+            dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0.25, 0, 6);
+    -fx-cursor: hand;
+}
+
+.box-title  { -fx-text-fill: #111; -fx-font-weight: 800; -fx-font-size: 18px; }
+.box-detail { -fx-text-fill: #333; -fx-font-size: 13px; }
+
+.box:hover {
+    -fx-translate-y: -2;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* ================= SUPER-LOUD BREAKPOINT SKINS ================= */
+
+/* ===== XS: coral & lime pops on light base */
+.box:xs {
+    -fx-background-color:
+            linear-gradient(to bottom right, rgba(255,105,120,0.40), rgba(255,180,160,0.25)),
+            linear-gradient(to bottom, rgba(255,255,255,0.65), rgba(255,255,255,0.35)),
+            #fff7f7;
+    -fx-border-color: #ff6f85;
+    -fx-effect: dropshadow(gaussian, rgba(255,105,120,0.35), 20, 0.5, 0, 6);
+}
+
+/* ===== SM: golden burst with cyan edge */
+.box:sm {
+    -fx-background-color:
+            radial-gradient(center 50% 40%, radius 80%, rgba(255,200,0,0.40), rgba(255,170,50,0.25)),
+            linear-gradient(to bottom, rgba(255,255,255,0.65), rgba(255,255,255,0.35)),
+            #fffbee;
+    -fx-border-color: #e6b800;
+    -fx-effect: dropshadow(gaussian, rgba(255,200,0,0.35), 20, 0.5, 0, 6);
+}
+
+/* ===== MD: fresh green with magenta accent */
+.box:md {
+    -fx-background-color:
+            linear-gradient(to bottom right, rgba(60,200,60,0.40), rgba(120,230,150,0.25)),
+            linear-gradient(to bottom right, rgba(255,0,180,0.15), transparent),
+            #f1fff5;
+    -fx-border-color: #2dbd2d;
+    -fx-effect: dropshadow(gaussian, rgba(60,200,60,0.35), 20, 0.5, 0, 6);
+}
+
+/* ===== LG: electric blue with violet haze */
+.box:lg {
+    -fx-background-color:
+            linear-gradient(to bottom right, rgba(0,160,255,0.40), rgba(120,190,255,0.25)),
+            linear-gradient(to bottom left, rgba(180,150,255,0.20), transparent),
+            #f5f9ff;
+    -fx-border-color: #3399ff;
+    -fx-effect: dropshadow(gaussian, rgba(0,160,255,0.35), 20, 0.5, 0, 6);
+}
+
+/* ===== XL: violet storm with teal sparks */
+.box:xl {
+    -fx-background-color:
+            radial-gradient(center 70% 30%, radius 80%, rgba(150,100,255,0.40), rgba(200,160,255,0.25)),
+            linear-gradient(to bottom right, rgba(0,210,180,0.18), transparent),
+            #f7f5ff;
+    -fx-border-color: #8b6ff0;
+    -fx-effect: dropshadow(gaussian, rgba(150,100,255,0.35), 22, 0.5, 0, 6);
+}
+
+/* ===== XXL: orange blaze with cobalt rim */
+.box:xxl {
+    -fx-background-color:
+            linear-gradient(to bottom right, rgba(255,140,40,0.40), rgba(255,110,70,0.28)),
+            radial-gradient(center 20% 80%, radius 75%, rgba(80,120,255,0.22), transparent 80%),
+            #fff8f1;
+    -fx-border-color: #ff8c2b;
+    -fx-effect: dropshadow(gaussian, rgba(255,140,40,0.35), 22, 0.5, 0, 6);
+}
+
+/* ================= TYPOGRAPHY TWEAKS PER BREAKPOINT ================= */
+.box:xs  .box-title { -fx-font-size: 16px; }
+.box:sm  .box-title { -fx-font-size: 17px; }
+.box:md  .box-title { -fx-font-size: 18px; }
+.box:lg  .box-title { -fx-font-size: 19px; }
+.box:xl  .box-title { -fx-font-size: 20px; }
+.box:xxl .box-title { -fx-font-size: 20px; }
+
+.box:xs  .box-detail,
+.box:sm  .box-detail,
+.box:md  .box-detail,
+.box:lg  .box-detail,
+.box:xl  .box-detail,
+.box:xxl .box-detail {
+    -fx-font-size: 13px;
+    -fx-text-fill: #444;
+}
+
+/* ================= DEBUG / TEST BOX ================= */
+/* This box shows how spans, offsets, and margins change per breakpoint.
+   Use it in your demo by giving a box the style class "test". */
+
+.test {
+    -fx-background-color:
+            linear-gradient(to bottom, #e0e0e0, #f5f5f5),
+            #ffffff;
+    -fx-border-color: #666;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-text-fill: #111;
+    -fx-font-weight: bold;
+}
+
+/* XS: full width, no offset, small margin */
+.test:xs {
+    -col-span: 8;
+    -col-offset: 4 ;
+    -fx-border-color: #ff6f85;
+    -fx-background-color: red;
+}
+
+/* SM: half width, offset by 1 col */
+.test:sm {
+    -col-span: 6;
+    -col-offset: 1;
+    -col-margin: 6;
+    -fx-border-color: #e6b800;
+}
+
+/* MD: third width, offset 2 cols */
+.test:md {
+    -col-span: 4;
+    -col-offset: 2;
+    -col-margin: 8;
+    -fx-border-color: #2dbd2d;
+}
+
+/* LG: quarter width, no offset, wider margin */
+.test:lg {
+    -col-span: 3;
+    -col-offset: 0;
+    -col-margin: 12;
+    -fx-border-color: #3399ff;
+}
+
+/* XL: span 5 cols, offset 1 */
+.test:xl {
+    -col-span: 5;
+    -col-offset: 1;
+    -col-margin: 10;
+    -fx-border-color: #8b6ff0;
+}
+
+/* XXL: span 8 cols, offset 2 */
+.test:xxl {
+    -col-span: 8;
+    -col-offset: 2;
+    -col-margin: 14;
+    -fx-border-color: #ff8c2b;
+}
