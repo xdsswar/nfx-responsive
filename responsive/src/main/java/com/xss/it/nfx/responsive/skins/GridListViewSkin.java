@@ -13,8 +13,14 @@
 package com.xss.it.nfx.responsive.skins;
 
 import com.xss.it.nfx.responsive.base.GridListDelegate;
+import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.SkinBase;
 import xss.it.nfx.responsive.control.NfxGridListView;
+
+import static com.xss.it.nfx.responsive.misc.Helpers.fadeIn;
+import static com.xss.it.nfx.responsive.misc.Helpers.fadeOt;
 
 /**
  * nfx-responsive
@@ -45,6 +51,8 @@ public final class GridListViewSkin<T> extends SkinBase<NfxGridListView<T>> {
      */
     private final GridListDelegate<T> delegate;
 
+    private final ListChangeListener<T> listener;
+
     /**
      * Creates a new {@code GridListViewSkin} instance.
      *
@@ -55,6 +63,12 @@ public final class GridListViewSkin<T> extends SkinBase<NfxGridListView<T>> {
         super(control);
         this.delegate = delegate;
 
+        listener = c ->{
+            while (c.next()){
+                handleListPlaceHolderBasedOnItems(getSkinnable().getItems());
+            }
+        };
+
         initialize();
     }
 
@@ -64,6 +78,52 @@ public final class GridListViewSkin<T> extends SkinBase<NfxGridListView<T>> {
     private void initialize() {
         getChildren().add(delegate);
 
+        handleListPlaceHolderBasedOnItems(getSkinnable().getItems());
 
+        getSkinnable().itemsProperty().addListener((obs, o, n) -> {
+            if (o != null){
+                o.removeListener(listener);
+            }
+
+            if (n != null){
+                handleListPlaceHolderBasedOnItems(n);
+                n.addListener(listener);
+            }
+        });
+    }
+
+
+    /**
+     * Handles the visibility of the placeholder node based on the presence of items in the list.
+     * If the list is empty or null, the placeholder is displayed; otherwise, the list content is shown.
+     *
+     * @param items the observable list of items to monitor
+     */
+    private void handleListPlaceHolderBasedOnItems(ObservableList<T> items){
+        final int delay = 100;
+        if (items.isEmpty() && getSkinnable().getPlaceHolder() != null){
+            Timeline fo = fadeOt(delegate, delay);
+            fo.setOnFinished(e->{
+                getChildren().remove(delegate);
+                if (!getChildren().contains(getSkinnable().getPlaceHolder())) {
+                    getSkinnable().getPlaceHolder().setOpacity(0);
+                    getChildren().add(getSkinnable().getPlaceHolder());
+                    fadeIn(getSkinnable().getPlaceHolder(), delay).play();
+                }
+            });
+            fo.play();
+        }
+        else {
+            Timeline fo = fadeOt(getSkinnable().getPlaceHolder(), delay);
+            fo.setOnFinished(e->{
+                getChildren().remove(getSkinnable().getPlaceHolder());
+                if (!getChildren().contains(delegate)) {
+                    delegate.setOpacity(0);
+                    getChildren().add(delegate);
+                    fadeIn(delegate, delay * 2).play();
+                }
+            });
+            fo.play();
+        }
     }
 }

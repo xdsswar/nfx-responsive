@@ -1,0 +1,14 @@
+.box-1{
+   -fx-background-color: aqua;
+    -col-span: 12;
+}
+
+.box-3{
+    -col-offset : 4;
+    -fx-background-color: black;
+    -col-margin : 0 0 30 0;
+}
+
+.base{
+    -fx-background-color: #110836;
+}

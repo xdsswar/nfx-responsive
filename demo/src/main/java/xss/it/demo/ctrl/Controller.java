@@ -12,6 +12,7 @@
 
 package xss.it.demo.ctrl;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import xss.it.demo.entity.Person;
 import xss.it.demo.model.PersonModel;
 import xss.it.nfx.responsive.control.NfxGridCell;
@@ -158,8 +160,12 @@ public class Controller implements Initializable {
             if (task.getValue() != null){
                 masterList.setAll(task.getValue());
                 Platform.runLater(() -> {
-                    listView.setItems(masterList);
-                    intiSearchFilter();
+                    PauseTransition pt = new PauseTransition(Duration.millis(2000));
+                    pt.setOnFinished(ev->{
+                        listView.setItems(masterList);
+                        intiSearchFilter();
+                    });
+                    pt.play();
                 });
             }
         });

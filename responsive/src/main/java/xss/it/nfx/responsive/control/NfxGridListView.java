@@ -20,7 +20,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.css.*;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
 import javafx.util.Callback;
 import xss.it.nfx.responsive.misc.SelectionModel;
@@ -518,6 +520,53 @@ public final class NfxGridListView<T> extends Control {
 
 
     /**
+     * Optional placeholder node for this pane (e.g., shown when there is no content).
+     * <p>
+     * Backed by a lazily-initialized {@link ObjectProperty} named {@code placeHolder}.
+     * The lifecycle (adding/removing it from the scene graph) is managed by this pane’s
+     * logic; setting this property alone does not automatically add it as a child.
+     * <p>
+     * Default: {@code null}.
+     */
+    private ObjectProperty<Node> placeHolder;
+
+    /**
+     * Returns the current placeholder node.
+     *
+     * @return the placeholder node, or {@code null} if none is set
+     */
+    public Node getPlaceHolder() {
+        return placeHolderProperty().get();
+    }
+
+    /**
+     * The placeholder property.
+     * <p>
+     * Created on first access. External code can observe or bind this property.
+     *
+     * @return the {@link ObjectProperty} wrapping the placeholder node
+     */
+    public ObjectProperty<Node> placeHolderProperty() {
+        if (placeHolder == null){
+            placeHolder = new SimpleObjectProperty<>(this, "placeHolder", defaultPlaceholder());
+        }
+        return placeHolder;
+    }
+
+    /**
+     * Sets the placeholder node.
+     * <p>
+     * Note: Setting this property does not by itself insert the node into the
+     * scene graph; display behavior is handled elsewhere by the pane.
+     *
+     * @param placeHolder the node to use as a placeholder (may be {@code null})
+     */
+    public void setPlaceHolder(Node placeHolder) {
+        placeHolderProperty().set(placeHolder);
+    }
+
+
+    /**
      * Scrolls the view so that the given item becomes visible.
      *
      * @param item the item to scroll into view; if {@code null} or not found, no action is taken
@@ -668,6 +717,17 @@ public final class NfxGridListView<T> extends Control {
     @Override
     public String getUserAgentStylesheet() {
         return STYLE_SHEET;
+    }
+
+    /**
+     * Creates a default placeholder node displaying a message when no items are available.
+     *
+     * @return a Label styled as a placeholder message
+     */
+    private Node defaultPlaceholder() {
+        Label label = new Label("No items available");
+        label.setStyle("-fx-font-size: 16; -fx-text-fill: gray;");
+        return label;
     }
 
     /**

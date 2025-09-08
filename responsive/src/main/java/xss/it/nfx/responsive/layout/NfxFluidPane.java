@@ -321,19 +321,6 @@ public final class NfxFluidPane extends Pane {
      */
     private static final PseudoClass PC_XXL = PseudoClass.getPseudoClass(XXL);
 
-    /**
-     * Caches the last applied breakpoint label (lower-case: "xs","sm","md","lg","xl","xxl").
-     * <p>
-     * Used to avoid redundant work: when the container’s active breakpoint hasn’t changed,
-     * we skip re-toggling pseudo-classes and reapplying grid mappings.
-     * <ul>
-     *   <li><b>Initial state:</b> {@code null} until the first evaluation.</li>
-     *   <li><b>Updates:</b> set inside {@code ensureActiveBreakpointApplied()} after
-     *       normalizing the current breakpoint to lower-case.</li>
-     *   <li><b>Threading:</b> access on the JavaFX Application Thread only.</li>
-     * </ul>
-     */
-    private volatile String lastBp = null;
 
     /**
      * The fixed breakpoint threshold for the extra-small (XS) range.
@@ -379,6 +366,20 @@ public final class NfxFluidPane extends Pane {
     private final ListChangeListener<String> sceneSheetsListener = change -> refreshAndApplyCss();
 
     /**
+     * Caches the last applied breakpoint label (lower-case: "xs","sm","md","lg","xl","xxl").
+     * <p>
+     * Used to avoid redundant work: when the container’s active breakpoint hasn’t changed,
+     * we skip re-toggling pseudo-classes and reapplying grid mappings.
+     * <ul>
+     *   <li><b>Initial state:</b> {@code null} until the first evaluation.</li>
+     *   <li><b>Updates:</b> set inside {@code ensureActiveBreakpointApplied()} after
+     *       normalizing the current breakpoint to lower-case.</li>
+     *   <li><b>Threading:</b> access on the JavaFX Application Thread only.</li>
+     * </ul>
+     */
+    private volatile String lastBp = null;
+
+    /**
      * If {@code true}, disables automatic layout in {@link #layoutChildren()}.
      * Call {@link #layoutNow()} yourself to perform layout manually.
      * <p>
@@ -390,7 +391,6 @@ public final class NfxFluidPane extends Pane {
      * {@link #requestLayout()} to schedule a new layout pass.
      */
     private volatile boolean isManualLayout = false;
-
 
     /**
      * Creates a new {@code NfxFluidPane}.
@@ -450,7 +450,7 @@ public final class NfxFluidPane extends Pane {
                 }
 
                 /*
-                 * This is crazy , yes I know, but if the best way we got to force
+                 * This is crazy , yes I know, but is the best way we got to force
                  * a relayout cuz requestLayout won't do much, and we need layout asap, so I did this guard-hack
                  */
                 applyCss();
@@ -498,6 +498,9 @@ public final class NfxFluidPane extends Pane {
          * Initial parse (if any stylesheets are present). A fucking pain in the ass.
          */
         refreshAndApplyCss();
+
+        //bs
+        setPrefSize(200, 200);
     }
 
 
@@ -1847,12 +1850,12 @@ public final class NfxFluidPane extends Pane {
      * These constants correspond to the responsive design breakpoints
      * handled by this layout:
      * <ul>
-     *   <li>{@code XS}  – extra small</li>
+     *   <li>{@code XS}  – extra-small</li>
      *   <li>{@code SM}  – small</li>
      *   <li>{@code MD}  – medium</li>
      *   <li>{@code LG}  – large</li>
-     *   <li>{@code XL}  – extra large</li>
-     *   <li>{@code XXL} – extra extra large</li>
+     *   <li>{@code XL}  – extra-large</li>
+     *   <li>{@code XXL} – extra-extra large</li>
      * </ul>
      * The array preserves logical order from smallest to largest breakpoint.
      */
