@@ -110,6 +110,8 @@ Grid width is divided into **12 equal columns** at every breakpoint.
 
 ### CSS Examples
 
+![NfxFluidPane](screenshots/0.png)
+
 ```css
 /* Base grid skin (light) */
 .nfx-grid { -fx-background-color: linear-gradient(to bottom, #fafafa, #f3f3f3); -fx-padding: 18; }
