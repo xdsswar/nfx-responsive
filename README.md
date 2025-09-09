@@ -4,6 +4,12 @@
 
 No global scene hooks, no surprise side effects — everything is scoped to the control.
 
+
+### Coming Soon :  NfxDoughnut Chart fully css styleable (Using Canvas)
+
+
+![NfxFluidPane](screenshots/coming.png)
+
 ---
 
 ## Table of Contents
