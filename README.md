@@ -1,69 +1,104 @@
 # Nfx Responsive Toolkit for JavaFX
+
 **Primary:** `NfxFluidPane` — CSS‑driven, responsive fluid grid  
 **Also included:** `NfxGridListView` (keyboard‑first virtualized grid list), `NfxGridLayout` (breakpoint grid for `NfxGridItem`)
 
 No global scene hooks, no surprise side effects — everything is scoped to the control.
 
-
-### Coming Soon :  NfxDoughnut Chart fully css styleable (Using Canvas)
-
-
-![NfxFluidPane](screenshots/coming.png)
+> 👉 Looking for the doughnut chart? It now lives in its own doc: **[NfxDoughnut Chart README](./NfxDoughnut.md)**
 
 ---
 
 ## Table of Contents
 1. [NfxFluidPane (Primary)](#nfxfluidpane-primary)
-    - [Features](#features)
-    - [Quick Start](#quick-start)
+    - [What it is](#what-it-is)
     - [Breakpoints](#breakpoints)
-    - [Layout Properties (CSS)](#layout-properties-css)
-    - [CSS Examples](#css-examples)
-    - [Programmatic API](#programmatic-api)
-    - [Precedence & Resolution](#precedence--resolution)
+    - [Child layout via CSS](#child-layout-via-css)
+    - [Child layout via Java API](#child-layout-via-java-api)
+    - [Resolution order & rules](#resolution-order--rules)
+    - [Examples](#examples)
     - [Tips & Troubleshooting](#tips--troubleshooting)
-2. [NfxGridListView](#nfxgridlistview)
-    - [Purpose](#purpose-1)
-    - [Key capabilities](#key-capabilities)
-    - [Navigation and shortcuts](#navigation-and-shortcuts)
-    - [Focus and selection model](#focus-and-selection-model)
-    - [Scrolling and visibility](#scrolling-and-visibility)
-    - [Styling hooks](#styling-hooks)
-    - [Integration tips](#integration-tips)
-3. [NfxGridLayout](#nfxgridlayout)
-    - [Purpose](#purpose-2)
-    - [Critical requirement](#critical-requirement)
-    - [Key capabilities](#key-capabilities-1)
+2. [NfxGridLayout](#nfxgridlayout)
+    - [Purpose](#purpose)
     - [How it lays out](#how-it-lays-out)
-    - [Styling hooks](#styling-hooks-1)
-4. [Demo & Screenshots](#demo--screenshots)
-5. [Known limitations](#known-limitations)
-6. [FAQ](#faq)
+    - [Using NfxGridItem](#using-nfxgriditem)
+    - [Integration tips](#integration-tips)
+3. [NfxGridItem](#nfxgriditem)
+    - [Breakpoint spans & offsets](#breakpoint-spans--offsets)
+    - [Gaps](#gaps)
+4. [NfxGridListView](#nfxgridlistview)
+    - [What it is](#what-it-is-1)
+    - [Keyboard model](#keyboard-model)
+    - [Selection model](#selection-model)
+    - [Scrolling & virtualization](#scrolling--virtualization)
+    - [Public API](#public-api)
+    - [CSS hooks](#css-hooks)
+5. [NfxGridCell](#nfxgridcell)
+6. [Screenshots](#screenshots)
+7. [Known Limitations](#known-limitations)
+8. [FAQ](#faq)
 
 ---
 
 ## NfxFluidPane (Primary)
 
-`NfxFluidPane` is a fluid, multi‑column **12‑column** layout container for JavaFX.  
-It arranges direct children into rows with Bootstrap‑like **spans**, **offsets**, and **margins**, and switches layouts at **breakpoints**: `xs`, `sm`, `md`, `lg`, `xl`, `xxl`.
+### What it is
+`NfxFluidPane` is a fluid, multi‑row **12‑column** layout container. It arranges direct children into rows with **spans**, **offsets**, and **margins**, and switches layouts at **breakpoints**: `xs`, `sm`, `md`, `lg`, `xl`, `xxl`. It preserves child order and is RTL‑aware.
 
-### Features
+### Breakpoints
 
-- **6 Breakpoints**: `xs`, `sm`, `md`, `lg`, `xl`, `xxl` (fixed **12** columns).
-- **Per‑child constraints** (set via **CSS** or **Java setters**):
-    - `-col-span: <int>` — how many columns the child spans (1..12)
-    - `-col-offset: <int>` — how many columns to skip before the child (0..11)
-    - `-col-margin: <insets>` — CSS‑like margins: `a`, `v h`, `t h b`, `t r b l`
-- **Pseudo‑class breakpoints**: write CSS like `.card:md { … }`, `.tile:xl { … }`.
-- **Right‑to‑left aware**: respects `NodeOrientation.RIGHT_TO_LEFT` while preserving child order.
-- **Order‑preserving / responsive packing**:
-    - Keeps child order.
-    - Wraps to the next row when the current row is full.
-    - If `offset + span` would overflow an *empty* row, span is **shrunk to fit** the remaining columns.
-- **Edge gutter clamp** (recommended pattern): zero left margin at column 0 and zero right margin at the last column to avoid outer gutters.
-- **Last‑wins precedence** with **exact breakpoint override**: exact `.klass:md` rules override base `.klass` rules for the same property.
+| Key | Typical Target            | Notes                                  |
+|-----|---------------------------|----------------------------------------|
+| xs  | Phones                    | Anything below the `sm` threshold      |
+| sm  | Large phones / small tabs |                                        |
+| md  | Tablets                   |                                        |
+| lg  | Small laptops             |                                        |
+| xl  | Desktops                  |                                        |
+| xxl | Wide desktops             |                                        |
 
-### Quick Start
+The active breakpoint is derived from the pane’s width and configurable thresholds. The pane computes rows against a fixed **12‑column** grid at every breakpoint.
+
+### Child layout via CSS
+
+Each child node can declare its grid constraints via CSS‑like custom properties. You can scope these to breakpoints using pseudo‑classes on your selectors: `.card:md { … }`, `.sidebar:xl { … }`.
+
+**Layout properties (per child):**
+
+| Property        | Type            | Range / Format                | Breakpoint‑aware | Description |
+|-----------------|-----------------|-------------------------------|------------------|-------------|
+| `-col-span`     | integer         | `1..12`                       | ✔                | How many columns the child spans. If an empty row would overflow (`offset + span > 12`), span is **shrunk to fit** the remaining columns. |
+| `-col-offset`   | integer         | `0..11`                       | ✔                | Columns to skip before placing the child on a row. |
+| `-col-margin`   | Insets (shorthand) | `a` • `v h` • `t h b` • `t r b l` | ✔           | Outside margins for the child. Units: number or `px`. |
+| `-col-align`    | string          | e.g., `start` \| `center` \| `end`  | ✔           | Horizontal alignment **inside its allocated span** (optional). |
+
+> Breakpoint scoping uses **pseudo‑classes** on the selector (e.g., `.tile:lg { -col-span: 4; }`). Base rules apply to all breakpoints; exact `:bp` rules override the base for that breakpoint.
+
+### Child layout via Java API
+
+Every layout property has per‑breakpoint setters/getters:
+
+**Spans (1..12)**  
+`setXsColSpan(node, int)`, `setSmColSpan(node, int)`, `setMdColSpan(node, int)`, `setLgColSpan(node, int)`, `setXlColSpan(node, int)`, `setXxlColSpan(node, int)`  
+`getXsColSpan(node)`, `getSmColSpan(node)`, `getMdColSpan(node)`, `getLgColSpan(node)`, `getXlColSpan(node)`, `getXxlColSpan(node)`
+
+**Offsets (0..11)**  
+`setXsColOffset(node, int)`, `setSmColOffset(node, int)`, `setMdColOffset(node, int)`, `setLgColOffset(node, int)`, `setXlColOffset(node, int)`, `setXxlColOffset(node, int)`  
+`getXsColOffset(node)`, `getSmColOffset(node)`, `getMdColOffset(node)`, `getLgColOffset(node)`, `getXlColOffset(node)`, `getXxlColOffset(node)`
+
+**Margins (Insets)**  
+`setXsInsets(node, Insets)`, `setSmInsets(node, Insets)`, `setMdInsets(node, Insets)`, `setLgInsets(node, Insets)`, `setXlInsets(node, Insets)`, `setXxlInsets(node, Insets)`  
+`getXsInsets(node)`, `getSmInsets(node)`, `getMdInsets(node)`, `getLgInsets(node)`, `getXlInsets(node)`, `getXxlInsets(node)`
+
+> **Edge gutters:** it’s common to clamp outside gutters: zero left margin at column 0 and zero right margin at the last column.
+
+### Resolution order & rules
+- **Last‑wins** within the same breakpoint: later rules override earlier ones.
+- **Exact breakpoint overrides base:** `.card:md` overrides `.card` at `md`.
+- **Order‑preserving packing:** children are placed left→right, top→bottom; wrap when a row fills. If the row is empty and `offset + span > 12`, span is reduced to fit.
+
+### Examples
+
+Attach classes and rely on CSS utilities:
 
 ```java
 NfxFluidPane grid = new NfxFluidPane();
@@ -72,67 +107,15 @@ grid.getStyleClass().add("nfx-grid");
 Label a = new Label("A");
 Label b = new Label("B");
 Label c = new Label("C");
+a.getStyleClass().addAll("box", "card");
+b.getStyleClass().addAll("box", "card");
+c.getStyleClass().addAll("box", "sidebar", "demo");
 
 grid.getChildren().addAll(a, b, c);
-
-// Optionally set constraints in code
-NfxFluidPane.setSmColSpan(a, 6);          // A takes 6/12 at sm+
-NfxFluidPane.setSmColSpan(b, 6);          // B takes 6/12 at sm+
-NfxFluidPane.setMdColOffset(c, 2);        // C offset by 2 cols at md+
-NfxFluidPane.setMdColSpan(c, 4);          // C takes 4/12 at md+
-
-// Attach a stylesheet that defines CSS utilities/skins
-scene.getStylesheets().add(getClass().getResource("/responsive.css").toExternalForm());
 ```
 
-### Breakpoints
-
-| Key | Name        | Typical Target             |
-|-----|-------------|----------------------------|
-| xs  | Extra small | Phones                     |
-| sm  | Small       | Large phones / small tabs  |
-| md  | Medium      | Tablets                    |
-| lg  | Large       | Small laptops              |
-| xl  | X‑Large     | Desktops                   |
-| xxl | XX‑Large    | Wide desktops              |
-
-Grid width is divided into **12 equal columns** at every breakpoint.
-
-### Layout Properties (CSS)
-
-- `-col-span: <int>` — number of columns to span, clamped to `[1..12]`.
-- `-col-offset: <int>` — left offset in columns, clamped to `[0..11]`.  
-  *(Make sure your setter clamps to 0..11; don’t use MIN_COLS.)*
-- `-col-margin: <insets>` — margins around the node (shorthand like CSS):
-    - `a` → `top/right/bottom/left = a`
-    - `v h` → `top/bottom = v`, `left/right = h`
-    - `t h b` → `top = t`, `left/right = h`, `bottom = b`
-    - `t r b l` → explicit four sides
-    - Units: raw numbers or `px` (e.g., `8` or `8px`).
-
-**Overflow rule:** If a row is empty and `offset + span > 12`, the span is **shrunk to fit** (`span = 12 − offset`).
-
-**Edge gutters:** You may clamp outer gutters so the first column has **no left margin** and the last column has **no right margin**; gutters remain **between** items.
-
-### CSS Examples
-
-![NfxFluidPane](screenshots/0.png)
-
 ```css
-/* Base grid skin (light) */
-.nfx-grid { -fx-background-color: linear-gradient(to bottom, #fafafa, #f3f3f3); -fx-padding: 18; }
-
-/* Generic tile visuals */
-.box {
-  -fx-background-color: #ffffff;
-  -fx-border-color: rgba(0,0,0,0.18);
-  -fx-border-radius: 12;
-  -fx-background-radius: 12;
-  -fx-padding: 16 14;
-  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 14, 0.25, 0, 5);
-}
-
-/* Layout utilities via custom properties */
+/* Layout utilities */
 .card:xs  { -col-span: 12; -col-margin: 6; }
 .card:sm  { -col-span: 6;  -col-margin: 8; }   /* 2-up on sm */
 .card:lg  { -col-span: 4;  -col-margin: 10; }  /* 3-up on lg+ */
@@ -140,15 +123,7 @@ Grid width is divided into **12 equal columns** at every breakpoint.
 .sidebar:xs { -col-span: 12; }
 .sidebar:lg { -col-span: 3;  -col-offset: 1; }
 
-/* Demo class that changes by breakpoint */
-.demo:xs  { -col-span: 12; -col-margin: 6; }
-.demo:sm  { -col-span: 8;  -col-margin: 8; }
-.demo:md  { -col-span: 6;  -col-margin: 10; }
-.demo:lg  { -col-span: 4;  -col-margin: 12; }
-.demo:xl  { -col-span: 4;  -col-margin: 12; }
-.demo:xxl { -col-span: 3;  -col-margin: 14; }
-
-/* Visual skins per breakpoint (optional) */
+/* Optional visual skins per breakpoint */
 .box:xs  { -fx-background-color: #fff7f6; -fx-border-color: #ff6f85; }
 .box:sm  { -fx-background-color: #fffbed; -fx-border-color: #e6b800; }
 .box:md  { -fx-background-color: #f2fff6; -fx-border-color: #2dbd2d; }
@@ -157,129 +132,121 @@ Grid width is divided into **12 equal columns** at every breakpoint.
 .box:xxl { -fx-background-color: #fff7ee; -fx-border-color: #ff8c2b; }
 ```
 
-Attach classes to nodes:
-```java
-a.getStyleClass().addAll("box", "card");
-b.getStyleClass().addAll("box", "card");
-c.getStyleClass().addAll("box", "sidebar", "demo");
-```
-
-### Programmatic API
-
-Each property can be set per breakpoint. Representative methods:
-
-```java
-// Spans (1..12)
-NfxFluidPane.setXsColSpan(node, 12);
-NfxFluidPane.setSmColSpan(node, 6);
-NfxFluidPane.setMdColSpan(node, 4);
-int spanMd = NfxFluidPane.getMdColSpan(node);
-
-// Offsets (0..11)
-NfxFluidPane.setXsColOffset(node, 0);
-NfxFluidPane.setSmColOffset(node, 1);
-int offSm = NfxFluidPane.getSmColOffset(node);
-
-// Insets (margins) as JavaFX Insets
-NfxFluidPane.setXsInsets(node, new Insets(6));
-NfxFluidPane.setMdInsets(node, new Insets(8, 12, 8, 12));
-Insets ins = NfxFluidPane.getLgInsets(node);
-```
-
-### Precedence & Resolution
-
-- **Last‑wins:** If multiple rules match the same node and breakpoint, the rule declared **later** in the parsed stylesheets wins.
-- **Exact bp beats base:** For the same class/property, `.klass:md` overrides `.klass` even if the base is later (use a priority boost when merging).
-
-```css
-.card { -col-span: 12; }   /* base */
-.card:md { -col-span: 6; } /* exact bp:md wins on md */
-```
-
 ### Tips & Troubleshooting
-
-- **Left gap at xs:** Ensure `-col-offset: 0` isn’t clamped to 1. Offsets must clamp to **[0..11]**. Clamp outer gutters at column edges if you don’t want outside spacing.
-- **Overflow at xs:** If `.klass:xs` sets `offset + span > 12`, the pane shrinks span to fit on an empty row.
-- **Last row clipped in parent:** Let the pane update its preferred height (it computes the required total row height) and make sure the parent respects pref height (e.g., in `ScrollPane`, leave `fitToHeight` `false` or wrap accordingly).
-
----
-
-## NfxGridListView
-
-### Purpose
-NfxGridListView displays items in a grid where the number of cells per row can change with available space. It emphasizes predictable keyboard behavior, one focused cell at a time, and clear selection semantics.
-
-### Key capabilities
-- **Grid‑aware navigation**: Up/Down move by the number of cells per row, Left/Right move within a row, with Home/End and Page Up/Down shortcuts.
-- **Focus‑only cursoring**: Arrow keys move the focus without mutating selection, preventing unintended multi‑selection growth.
-- **Deterministic range selection**: Shift + click replaces the current selection with the exact range between the anchor and the clicked cell.
-- **Exclusive activation**: Enter selects the focused item exclusively (the previously selected items are cleared).
-- **Select all**: Ctrl or Command + A selects all items at once.
-- **Refresh**: F5 triggers a visual refresh and preserves the focused item’s visibility if it still exists.
-- **Local‑only event handling**: Keyboard and mouse interactions are attached to the control itself, avoiding conflicts with other parts of your application.
-- **Virtualization**: Only visible cells are realized; off‑screen cells are recycled to keep scrolling smooth.
-
-### Navigation and shortcuts
-- **Arrow keys**: Move focus only. Up/Down step by the current cells‑per‑row value; Left/Right step within a row.
-- **Home / End**: Jump to the first or last cell of the current row.
-- **Page Up / Page Down**: Move by an estimated number of visible rows.
-- **Enter**: Activates exclusive selection for the focused cell.
-- **Shift + Click**: Selects a contiguous range, replacing any items outside that range.
-- **Ctrl or Command + A**: Selects all items.
-- **F5**: Refreshes the view.
-
-### Focus and selection model
-- **Single focused cell**: A lightweight, item‑based focus model guarantees that at most one cell is visually focused at any time.
-- **Selection model**: Supports single or multiple selection modes with atomic operations to replace the selection list, ensuring consistent results during range and select‑all actions.
-- **Range anchor rule**: If a selection exists, the anchor is the most recently selected item; otherwise the focused item is used. The final range is always exactly between the anchor and the clicked cell.
-
-### Scrolling and visibility
-- The view keeps the focused cell visible by adjusting the scroll position when focus changes via keyboard.
-- Page navigation uses a row‑estimate based on current viewport size, cell size, and spacing to feel natural.
-
-### Styling hooks
-- **Cell style class**: `grid-cell`.
-- **Pseudo‑classes**: `selected`, `focused`, and (optionally) `pressed` if you toggle it from your cell logic.
-- **Inner content coloring**: The styling model expects text and graphics inside each cell to change appearance when the cell is selected or focused. If you are using raw text nodes, ensure they are styled as descendants so they can inherit selected visuals.
-
-### Integration tips
-- Keep keyboard navigation focus‑only; perform selection on explicit activation (Enter) or by mouse gestures. This avoids “sticky” selections while navigating.
-- If you support toggling by keyboard (for example, a modifier plus Space), apply selection changes atomically to avoid flicker and race conditions with default behaviors.
-- Because event handling is local, this control won’t interfere with global shortcuts or other controls in your Scene.
+- **Left gap at xs**: ensure `-col-offset: 0` is allowed; offsets clamp to `[0..11]`.
+- **Overflow at xs**: if a row is empty and `offset + span > 12`, span is shrunk to fit.
+- **Last row clipped**: let the pane compute its preferred height; in a `ScrollPane`, avoid forcing `fitToHeight=true` unless desired.
 
 ---
 
 ## NfxGridLayout
 
 ### Purpose
-NfxGridLayout is a responsive container that arranges content across breakpoints, similar to a CSS grid. It uses a 12‑column conceptual grid and recomputes layout when the container width crosses defined thresholds.
-
-### Critical requirement
-**Only NfxGridItem children are supported.** NfxGridItem carries the breakpoint properties (such as spans and optional visibility) that NfxGridLayout reads to perform responsive placement. Regular nodes are not accepted as direct children.
-
-### Key capabilities
-- **Breakpoint‑driven layout**: Items declare spans per breakpoint (for example, compact through extra‑large). As the container width changes, items reflow automatically.
-- **12‑column grid**: Column spans are evaluated against a 12‑column model and wrap as needed to new rows.
-- **Consistent rhythm**: Horizontal and vertical gaps and container padding produce a clean, predictable layout rhythm.
-- **Visibility and ordering**: If provided by your NfxGridItem API, items may be shown or hidden per breakpoint and can influence placement order predictably.
+`NfxGridLayout` is a responsive container that arranges **only** `NfxGridItem` children on a 12‑column grid across breakpoints. It listens to width changes, resolves the active breakpoint, and reflows items predictably.
 
 ### How it lays out
-- The container listens to size changes and determines the active breakpoint.
-- Each NfxGridItem contributes its span for the active breakpoint.
-- Items are placed left‑to‑right, top‑to‑bottom, wrapping based on available columns, with gaps and padding respected.
+1. The container determines the active breakpoint from its width.
+2. Each `NfxGridItem` contributes its **span** and **offset** for that breakpoint.
+3. Items are placed left→right, top→bottom, wrapping as needed. Container padding and item gaps are respected.
 
-### Styling hooks
-- Apply styling to the content inside NfxGridItem as you would with standard JavaFX nodes. The layout itself focuses on structure and spacing rather than visuals.
-- Keep typography and color concerns inside the item content so that breakpoint changes do not alter the visual language unexpectedly.
+### Using `NfxGridItem`
+Add only `NfxGridItem` instances as direct children (other node types are rejected automatically). Within each `NfxGridItem`, put the actual content node (e.g., your card, chart, etc.).
+
+```java
+NfxGridLayout root = new NfxGridLayout();
+
+NfxGridItem tile1 = new NfxGridItem();
+tile1.setSmColSpan(6);     // 2-up on sm+
+tile1.setMdColSpan(4);     // 3-up on md+
+tile1.setContent(new MyCard());
+
+root.getChildren().addAll(tile1 /*, tile2, ... */);
+```
+
+**`NfxGridItem` layout fields the layout reads**
+- **Spans per bp (1..12)**: `setXsColSpan(int)`, `setSmColSpan(int)`, `setMdColSpan(int)`, `setLgColSpan(int)`, `setXlColSpan(int)`, `setXxlColSpan(int)`  
+  Default XS = full width (`12`).
+- **Offsets per bp (0..11)**: `setXsColOffset(int)`, `setSmColOffset(int)`, `setMdColOffset(int)`, `setLgColOffset(int)`, `setXlColOffset(int)`, `setXxlColOffset(int)`  
+  Default = `0`.
+- **Per‑item gaps (px)**: `setLeftGap(double)`, `setRightGap(double)`, `setTopGap(double)`, `setBottomGap(double)`  
+  Default = `0` each.
+
+### Integration tips
+- Encapsulate visuals inside each `NfxGridItem` so changes in breakpoint don’t affect your visual hierarchy.
+- Use item gaps for fine‑grained spacing; use container padding for outer rhythm.
 
 ---
 
-## Demo & Screenshots
+## NfxGridItem
 
-### Demo Video
-[![Watch the demo](https://img.youtube.com/vi/TsJTyd2h_VM/hqdefault.jpg)](https://www.youtube.com/watch?v=TsJTyd2h_VM)
+An item container that carries breakpoint‑specific spans/offsets and optional per‑side **gaps** read by `NfxGridLayout`.
 
-### Screenshots
+### Breakpoint spans & offsets
+- **Span (1..12)**: `get/setXsColSpan`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl` — default XS span is full width (`12`).
+- **Offset (0..11)**: `get/setXsColOffset`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl` — default `0`.
+
+Values are clamped by the layout; invalid inputs are normalized.
+
+### Gaps
+- **Per‑side gaps (px)** applied around this item: `leftGap`, `rightGap`, `topGap`, `bottomGap`.  
+  Each is a `DoubleProperty`; default `0` (no extra gap).
+
+---
+
+## NfxGridListView
+
+### What it is
+A **virtualized grid list** with a predictable keyboard model. Scales to large item counts by realizing only visible cells. Focus is separate from selection to avoid accidental selection growth during navigation.
+
+### Keyboard model
+- **Arrow keys**: move focus only. Up/Down jump by the current cells‑per‑row; Left/Right move within a row.
+- **Home / End**: move focus to start/end of current row.
+- **Page Up / Page Down**: move by an estimated number of visible rows.
+- **Enter**: activate exclusive selection on the focused cell.
+- **Shift + Click**: select contiguous range (anchor → clicked), replacing any prior selection.
+- **Ctrl/⌘ + A**: select all.
+- **F5**: refresh skin and try to keep focused cell visible if it still exists.
+
+### Selection model
+- Single focused cell at a time (visual cursor).
+- Selection modes via `SelectionModel.Mode` (`SINGLE`, `MULTIPLE`).
+- **Deterministic range** semantics (anchor + end define the exact contiguous range).
+
+### Scrolling & virtualization
+- Keeps the focused cell visible by adjusting scroll when focus changes via keys.
+- Virtualizes offscreen cells for smoother scrolling.
+
+### Public API
+
+| Property                  | Type                     | Default                | CSS (if styleable)            | Description |
+|--------------------------|--------------------------|------------------------|-------------------------------|-------------|
+| `minCellWidth`           | `double`                 | `50.0`                 | `-fx-min-cell-width`          | Minimum width a cell will occupy before wrapping to fewer per row. |
+| `cellHeight`             | `double`                 | `100.0`                | `-fx-cell-height`             | Fixed cell height used for layout/virtualization. |
+| `maxCellsPerRow`         | `int`                    | `Integer.MAX_VALUE`    | `-fx-max-cells-per-row`       | Hard cap on cells per row regardless of width. |
+| `boxInsets`              | `Insets`                 | `Insets.EMPTY`         | `-fx-box-insets`              | Padding inside each cell's content box. |
+| `cellSpacing`            | `Insets`                 | `Insets.EMPTY`         | `-cell-spacing`               | Extra spacing around cells (`top right bottom left`). |
+| `placeHolder`            | `Node`                   | `null`                 | —                             | Optional placeholder node (e.g., when list is empty). |
+| `selectionMode`          | `SelectionModel.Mode`    | —                      | —                             | `SINGLE` or `MULTIPLE`. |
+| `unselectOnClick`        | `boolean`                | `false`                | —                             | If `true`, clicking an already‑selected cell will unselect it. |
+
+> Notes: In doc comments, some CSS names appear with `-fx-` prefixes; the control also documents custom names like `-cell-spacing`. Use the ones above as published by the control.
+
+
+### CSS hooks
+- **Cell style class:** `grid-cell`
+- **Pseudo‑classes:** `selected`, `focused`
+- **Default cell factory label class:** `default-grid-cell-factory-label` (for the built‑in simple label factory)
+
+---
+
+## NfxGridCell
+Cell used by `NfxGridListView`.  
+Adds style class **`grid-cell`** and toggles pseudo‑classes **`selected`** and **`focused`**; style your inner content to react to these states (e.g., change text fill, background, border).
+
+---
+
+## Screenshots
+
 ![Dashboard Maximized](screenshots/1.png)
 
 ![Dashboard Maximized](screenshots/2.png)
@@ -288,24 +255,24 @@ NfxGridLayout is a responsive container that arranges content across breakpoints
 
 ---
 
-## Known limitations
+## Known Limitations
 
-- `NfxGridLayout` requires `NfxGridItem` as direct children; other node types are not supported.
-- `NfxGridListView` maintains only one focused cell by design to keep keyboard navigation predictable.
-- Because all event handling is local to the controls, application‑wide shortcuts are unaffected. If you need global shortcuts, wire them at the application level.
+- `NfxGridLayout` accepts only `NfxGridItem` as direct children; other node types are rejected.
+- `NfxGridListView` maintains a single focused cell; this is intentional for a predictable keyboard model.
+- Event handling for controls is local and won’t interfere with application‑wide shortcuts.
 
 ---
 
 ## FAQ
 
-**Why don’t arrow keys change selection in NfxGridListView?**  
-To keep navigation predictable and avoid growing the selection by accident. Selection changes happen on explicit activation or by mouse selection gestures.
+**Why don’t arrow keys change selection in `NfxGridListView`?**  
+To keep navigation predictable and avoid growing the selection by accident. Selection changes happen on Enter, with range by Shift+Click, or via explicit APIs.
 
-**Why does Shift + click replace the selection instead of extending it?**  
-This control favors deterministic range selection. The result is always the contiguous range between the anchor and the clicked cell, with everything else cleared.
+**How do breakpoint CSS rules override base rules?**  
+Base class rule (e.g., `.card`) applies everywhere unless a specific breakpoint rule exists (e.g., `.card:md`). The exact breakpoint wins at that breakpoint.
 
-**Can I change how selected cells look?**  
-Yes. Use the `grid-cell` style class and pseudo‑classes such as `selected` and `focused`. Ensure your inner text and graphics are styled as descendants so they reflect the selected state.
+**What if a child’s `offset + span` overflows an empty row?**  
+`NfxFluidPane` shrinks the span to fit the remaining columns on that row.
 
-**What happens to focus during refresh?**  
-The view attempts to keep the previously focused item visible and focused if it still exists after refresh.
+**Does RTL affect placement order?**  
+`NfxFluidPane` respects `NodeOrientation.RIGHT_TO_LEFT` while preserving child order.

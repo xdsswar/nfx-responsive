@@ -1819,7 +1819,7 @@ public final class NfxFluidPane extends Pane {
      * @param scene the scene the node is in (may be {@code null})
      * @return an immutable list of stylesheet URLs, in cascading order, without duplicates
      */
-    private static List<String> extractStyleSheets(Parent self, Scene scene) {
+    public static List<String> extractStyleSheets(Parent self, Scene scene) {
         // Keep insertion order + dedupe
         LinkedHashSet<String> urls = new LinkedHashSet<>();
 
