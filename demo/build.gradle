@@ -10,7 +10,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 application {
-    mainClass = 'xss.it.demo.FluidDemo'
+    mainClass = 'xss.it.demo.Demo'
 }
 
 java { toolchain { languageVersion = JavaLanguageVersion.of(21) }}

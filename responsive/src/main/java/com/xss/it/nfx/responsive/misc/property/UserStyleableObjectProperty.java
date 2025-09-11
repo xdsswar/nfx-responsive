@@ -12,8 +12,10 @@
 
 package com.xss.it.nfx.responsive.misc.property;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.css.*;
+import javafx.css.CssMetaData;
+import javafx.css.SimpleStyleableObjectProperty;
+import javafx.css.StyleOrigin;
+import javafx.css.Styleable;
 
 /**
  * nfx-responsive

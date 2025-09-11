@@ -39,7 +39,7 @@ import javafx.css.Styleable;
  * will be ignored; however, INLINE styles always apply. Call
  * {@link #clearUserOverride()} to relinquish control back to CSS.</p>
  */
-public  class UserStyleableDoubleProperty extends SimpleStyleableDoubleProperty {
+public class UserStyleableDoubleProperty extends SimpleStyleableDoubleProperty {
 
     /**
      * Tracks whether the value was set by user code.
